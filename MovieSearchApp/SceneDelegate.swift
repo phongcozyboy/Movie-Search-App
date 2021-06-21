@@ -13,10 +13,33 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        let window = UIWindow(windowScene: windowScene)
+        
+        // home tab
+        let homeViewController = HomeViewController()
+        let homeViewControllerNV = UINavigationController(rootViewController: homeViewController)
+        
+        homeViewController.tabBarItem = UITabBarItem(title: "Home",
+                                                     image: UIImage(systemName: "house"),
+                                                     selectedImage: UIImage(systemName: "house.fill"))
+        
+        // favorites tab
+        let favoritesViewController = FavoritesViewController()
+        let favoritesViewControllerNV = UINavigationController(rootViewController: favoritesViewController)
+        
+        favoritesViewController.tabBarItem = UITabBarItem(title: "Favorites",
+                                                          image: UIImage(systemName: "heart"),
+                                                          selectedImage: UIImage(systemName: "heart.fill"))
+        
+        //tabs
+        let tabbarController = UITabBarController()
+        tabbarController.viewControllers = [homeViewControllerNV, favoritesViewControllerNV]
+        
+        
+        self.window = window
+        self.window?.makeKeyAndVisible()
+        self.window?.rootViewController = tabbarController
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -47,6 +70,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
 
-
+    
 }
 
